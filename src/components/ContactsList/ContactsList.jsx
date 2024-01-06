@@ -1,19 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact } from 'store/operation';
-import { getContacts, getStatusFilter } from 'store/selectors';
+import { getContacts, visibleContacts } from 'store/selectors';
 
 export const ContactsList = () => {
   const items = useSelector(getContacts);
-  const filter = useSelector(getStatusFilter);
   const dispatch = useDispatch();
 
   const handleDeleteContact = id => () => {
     dispatch(deleteContact(id));
   };
 
-  const arreyContactsFiltered = items.filter(({ name }) =>
-    name.toLowerCase().includes(filter.trim().toLowerCase())
-  );
+  const arreyContactsFiltered = useSelector(visibleContacts);
 
   return (
     <ul className="list-group ">
