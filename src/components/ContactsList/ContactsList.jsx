@@ -1,17 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { dellContact } from 'store/contactsSlice';
+import { deleteContact } from 'store/operation';
 
 export const ContactsList = () => {
-  const contacts = useSelector(state => state.contacts);
+  const items = useSelector(state => state.contacts.items);
   const filter = useSelector(state => state.filter);
 
   const dispatch = useDispatch();
 
-  const handleDeleteContact = e => {
-    dispatch(dellContact(e.target.id));
+  const handleDeleteContact = id => () => {
+    dispatch(deleteContact(id));
   };
 
-  const arreyContactsFiltered = contacts.filter(({ name }) =>
+  const arreyContactsFiltered = items.filter(({ name }) =>
     name.toLowerCase().includes(filter.trim().toLowerCase())
   );
 
@@ -24,7 +24,7 @@ export const ContactsList = () => {
           </div>
           <button
             id={id}
-            onClick={handleDeleteContact}
+            onClick={handleDeleteContact(id)}
             type="button"
             className="btn btn-danger ms-auto"
           >

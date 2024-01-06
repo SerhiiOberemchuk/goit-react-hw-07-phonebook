@@ -1,13 +1,12 @@
-import { nanoid } from 'nanoid';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'store/contactsSlice';
+import { addContact } from 'store/operation';
 import swal from 'sweetalert';
 
 export const FormAddContacts = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const contacts = useSelector(state => state.contacts);
+  const { items } = useSelector(state => state.contacts);
   const dispatch = useDispatch();
 
   const handleChange = e => {
@@ -25,12 +24,11 @@ export const FormAddContacts = () => {
   const handleAddContact = e => {
     e.preventDefault();
     const newContact = {
-      id: nanoid(),
       name: name,
       number: number,
     };
 
-    const isContact = contacts.some(
+    const isContact = items.some(
       obj =>
         obj.name.trim().toLowerCase() === newContact.name.trim().toLowerCase()
     );
