@@ -32,6 +32,7 @@ export const ContactsList = () => {
           </button>
         </li>
       ))}
+      {items.length === 0 && <h3>Phonebook is empty</h3>}
     </ul>
   );
 };
