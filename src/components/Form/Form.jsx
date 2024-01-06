@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'store/operation';
+import { getContacts } from 'store/selectors';
 import swal from 'sweetalert';
 
 export const FormAddContacts = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const { items } = useSelector(state => state.contacts);
+  const items = useSelector(getContacts);
   const dispatch = useDispatch();
 
   const handleChange = e => {
